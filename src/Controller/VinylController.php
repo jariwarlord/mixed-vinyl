@@ -8,22 +8,29 @@ use Symfony\Component\HttpFoundation\Response;
 
 class VinylController extends AbstractController
 {
-    /**
-     * @Route("/path")
-     */
+    #[Route('/', name:'app_homepage')]
     public function homepage() : Response
     {
+        $tracks = [
+            ['song' => 'Gangsta\'s Paradise', 'artist' => 'Coolio'],
+            ['song' => 'Waterfalls', 'artist' => 'TLC'],
+            ['song' => 'Creep', 'artist' => 'Radiohead'],
+            ['song' => 'Kiss from a Rose', 'artist' => 'Seal'],
+            ['song' => 'On Bended Knee', 'artist' => 'Boyz II Men'],
+            ['song' => 'Fantasy', 'artist' => 'Mariah Carey'],
+        ];
         return $this->render('vinyl/homepage.html.twig',[
-            'title' => 'PB & Jams'
+            'title' => 'PB & Jams',
+            'tracks' => $tracks,
         ]);
     }
 
-    /**
-     * @Route("/browse/{slug}", name="vinyl_browse")
-     */
+    #[Route('/browse/{slug}', name:'app_browse')]
     public function browse(string $slug = null): Response
     {
-        $title = ucwords(str_replace('-', ' ', $slug));
-        return new Response("Genre: " . $title);
+        $genre = $slug ? ucwords(str_replace('-', ' ', $slug)) : null;
+        return $this->render('vinyl/browse.html.twig', [
+            'genre' => $genre,
+        ]);
     }
 }

@@ -6,3 +6,6 @@ controllers:
 vinyl_browse:
     path: /browse/{slug}
     controller: App\Controller\VinylController::browse
+homepage:
+    path: /homepage
+    controller: App\Controller\VinylController::homepage
